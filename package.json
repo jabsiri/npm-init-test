@@ -1,0 +1,23 @@
+{
+  "name": "npm-init-test",
+  "version": "1.0.0",
+  "description": "테스트",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"no test specified\"",
+    "build": "webpack"
+  },
+  "author": "jabsiri",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^17.0.1"
+  },
+  "devDependencies": {
+    "css-loader": "^5.0.1",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^4.5.0",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.5.1",
+    "webpack-cli": "^4.2.0"
+  }
+}
