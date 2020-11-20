@@ -66,7 +66,6 @@ module.exports = {              //CommonJs에 해당하는 node의 모듈임.
       hash: true, // 정적 파일을 불러올때 쿼리문자열에 웹팩 해쉬값을 추가한다
 
     }),
-    new CleanWebpackPlugin()
-    
+    new CleanWebpackPlugin() //배포할때 배포경로를 먼저 지운다
   ]
 };
