@@ -243,7 +243,9 @@ Babel은 아래 3단계로 진행이 되는데 기본 Babel은 1,3번만 진행�
 	
 ### Babel Plugin
 [plugin-transform-block-scoping](https://babeljs.io/docs/en/babel-plugin-transform-block-scoping) : const and let to ES5
+
 [@babel/plugin-transform-arrow-functions](https://babeljs.io/docs/en/babel-plugin-transform-arrow-functions) :  arrow functions to ES5
+
 [@babel/plugin-transform-strict-mode](https://babeljs.io/docs/en/babel-plugin-transform-strict-mode) : This plugin places a 'use strict'; directive at the top of all files to enable strict mode
 
 
