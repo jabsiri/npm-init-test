@@ -27,7 +27,9 @@ module.exports = {              //CommonJs에 해당하는 node의 모듈임.
     rules:[   //loader를 적용할 rule
       {
         test : /\.js$/,   //.js로 끝나는 파일 정규식
-        use : [path.resolve('./my-webpack-loader.js')]  //위의 test에 해당하는 파일을 적용할 loader
+        exclude:path.resolve('./node_modules'),
+        use : [path.resolve('./my-webpack-loader.js'), 'babel-loader']   //위의 test에 해당하는 파일을 적용할 loader
+
       },
       {
         test : /\.css$/,   //.js로 끝나는 파일 정규식

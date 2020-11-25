@@ -10,9 +10,19 @@
   "author": "jabsiri",
   "license": "ISC",
   "dependencies": {
+    "core-js": "^3.7.0",
+    "i": "^0.3.6",
     "react": "^17.0.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.12.8",
+    "@babel/core": "^7.12.8",
+    "@babel/plugin-transform-arrow-functions": "^7.12.1",
+    "@babel/plugin-transform-block-scoping": "^7.12.1",
+    "@babel/plugin-transform-strict-mode": "^7.12.1",
+    "@babel/preset-env": "^7.12.7",
+    "babel-loader": "^8.2.1",
+    "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^5.0.1",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^4.5.0",

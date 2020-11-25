@@ -217,6 +217,129 @@ plugins: [ //배열로 설정한다.
   })
 ]
 ```
-왜 이렇게 힘들게 웹팩을 사용하는가....	
+
+## Babel
+ > [Babel is a JavaScript compiler.](https://babeljs.io/)
+입력과 출력이 모두 자바스크립트 코드인 컴파일러다.(transpiler 라고도 한다.) 초기에는 ES6->ES5코드로 변환해  주는 역활만 했다. 현재는 React의 JSX문법, Typescript와 같은 정적 타입언어, 코드 압축 등을 한다.
+
+	npm i -D @babel/core  @babel/cli
+
+babel_app.js
+```javascript
+const  alert = msg  =>  window.alert(msg);
+```
+babel 실행
+
+	npx babel babel_app.js
+
+Babel은 아래 3단계로 진행이 되는데 기본 Babel은 1,3번만 진행하고, 2번은 Plugin이 담당한다.
+ 1. 파싱(Parsing)
+ 2. 변환(Transforming)
+ 3. 출력(Printing)
+
+	
+### Babel Plugin
+[plugin-transform-block-scoping](https://babeljs.io/docs/en/babel-plugin-transform-block-scoping) : const and let to ES5
+[@babel/plugin-transform-arrow-functions](https://babeljs.io/docs/en/babel-plugin-transform-arrow-functions) :  arrow functions to ES5
+[@babel/plugin-transform-strict-mode](https://babeljs.io/docs/en/babel-plugin-transform-strict-mode) : This plugin places a 'use strict'; directive at the top of all files to enable strict mode
 
 
+	npm i -D @babel/plugin-transform-block-scoping
+	npm i -D @babel/plugin-transform-arrow-functions
+	npm i -D @babel/plugin-transform-strict-mode
+	npx babel babel_app.js \
+	 --plugins @babel/plugin-transform-block-scoping \
+	 --plugins @babel/plugin-transform-arrow-functions \
+	 --plugins @babel/plugin-transform-strict-mode
+
+### [Presets](https://babeljs.io/docs/en/presets)
+Babel의 plugins set을 구성한다. ( 목적에 맞게 )
+공식적으로 지원하는 프리셋도 있다. 
+
+ - @babel/preset-env
+ - @babel/preset-flow
+ - @babel/preset-react
+ - @babel/preset-typescript
+ - 등.
+>Many other community maintained presets are available [on npm](https://www.npmjs.com/search?q=babel-preset)!
+
+	npm i -D@babel/preset-env
+
+```javascript
+  //babel-myMyPreset.js
+  module.exports = function  mypreset() {
+    return {
+      plugins: [
+        "@babel/plugin-transform-arrow-functions",
+        "@babel/plugin-transform-block-scoping",
+        "@babel/plugin-transform-strict-mode"
+      ],
+    }
+  }
+  
+  //babel.config.json
+  {
+    "plugins":[],
+    "presets":["./babel-myPreset.js"]
+  }
+```
+
+```javascript
+  //babel.config.json
+  {
+    "plugins":[],
+    "presets":[["@babel/preset-env", 
+      {
+        "targets":{
+          "chrome":"79",
+          "ie": "11"
+        }
+    }]]
+  }
+```
+
+하지만 Babel은 ES5로 코드를 변환해주지만 Promise, Map, Set... 등과 같은 신규 기능을 처리하지 못한다. 이러한 기능들도 완벽하게 사용하기 위해서는 Polyfill이 필요하다.
+
+## Polyfill
+babel에서 변환하지 못하는 기능(Promise, Map, Set)들을 ES5에서 사용가능하도록 구현해놓은 것.
+babel-polyfill은 내부적으로 facebook에서 만든 Generator Function polyfill인 regenerator runtime과 ES5/6/7 polyfill인 core-js를 주요 dependency로 가지고 있다. 가장 유명하고 안정적인 polyfill들을 사용하기 편리하게 래핑해 놓은 모듈이라고 생각하면 편하다.
+
+```javascript
+//babel_app.js
+const  alert = msg  =>  window.alert(msg);
+let  promise = new  Promise();
+
+//babel.config.json
+{
+  "plugins":[],
+  "presets":[["@babel/preset-env", {
+    "targets":{
+      "chrome":"79",
+      "ie": "11"
+    },
+    "useBuiltIns":"usage",
+    "corejs":{
+      "version":2
+    }
+  }]]
+}
+```
+	npx babel babel_app.js
+
+
+## webpack babel-loader
+
+babel-loader가 babel로 처리 못하는 ( 예:primise ) 내용이 있을 경우 core-js dptj 자동으로 해당 기능을 구현한 모듈을 import 한다. 
+
+```javascript
+require("core-js/modules/es6.promise");
+require("core-js/modules/es6.object.to-string");
+```
+
+	npm i -D babel-loader
+	npm i core-js	//core-js에서 제공하는 모듈을 import하기에 필요
+
+
+## 참고
+[프로트엔드 개발환경의 이해](https://jeonghwan-kim.github.io/series/2019/12/09/frontend-dev-env-npm.html)
+[강의 동영상](https://www.youtube.com/watch?v=L9gr4fO4OhQ)

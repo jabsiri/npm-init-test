@@ -13,8 +13,8 @@ class MyPlugin {
     compiler.hooks.done.tap('MyPlugin', stats => {
       //console.log(stats);
       console.log('MyPlugin : done');
-      console.log(ConcatSource);
-      console.log("----------------");
+      //console.log(ConcatSource);
+      //console.log("----------------");
     });
     
     compiler.hooks.emit.tapAsync({name:'MyPlugin', context:true}, (context, compilation, callback) => {
