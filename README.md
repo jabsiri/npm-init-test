@@ -342,4 +342,5 @@ require("core-js/modules/es6.object.to-string");
 
 ## 참고
 [프로트엔드 개발환경의 이해](https://jeonghwan-kim.github.io/series/2019/12/09/frontend-dev-env-npm.html)
+
 [강의 동영상](https://www.youtube.com/watch?v=L9gr4fO4OhQ)
